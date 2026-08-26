@@ -103,3 +103,26 @@ body {
   .showcase-inner { flex-direction: column; gap: var(--space-4); }
   .product-card { width: 240px; height: 320px; }
 }
+
+.shop { padding: var(--space-8) var(--space-6); }
+.shop-header { text-align: center; margin-bottom: var(--space-6); }
+.shop-title { font-size: 2.5rem; margin-top: var(--space-2); }
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-5);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.shop-card { text-align: center; }
+.shop-card-image {
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(160deg, #5a3d2b, #2e1e14);
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  margin-bottom: var(--space-2);
+  transition: border-color 0.3s ease;
+}
+.shop-card:hover .shop-card-image { border-color: var(--color-accent); }
+.shop-card-name { font-size: 1.05rem; margin-bottom: 4px; }
+.shop-card-price { color: var(--color-accent); font-size: 0.95rem; }
