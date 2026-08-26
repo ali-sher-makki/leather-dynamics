@@ -1,0 +1,95 @@
+:root {
+  --color-bg: #0a0a0a;
+  --color-surface: #1a1a1a;
+  --color-text: #f2f0ec;
+  --color-accent: #c9a04d;
+  --space-1: 8px; --space-2: 16px; --space-3: 24px; --space-4: 32px;
+  --space-5: 48px; --space-6: 64px; --space-7: 96px; --space-8: 128px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-6);
+  background: radial-gradient(circle at 50% 30%, #1a1a1a, #0a0a0a 70%);
+}
+.hero-content { max-width: 800px; }
+.eyebrow {
+  display: inline-block;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+.hero-title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1.05;
+  margin-bottom: var(--space-3);
+}
+.hero-sub {
+  font-size: 1.15rem;
+  color: #b8b6b0;
+  max-width: 500px;
+  margin: 0 auto var(--space-4);
+}
+.btn-primary {
+  display: inline-block;
+  padding: 14px 36px;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.btn-primary:hover { background: var(--color-accent); color: var(--color-bg); }
+
+.showcase { height: 300vh; position: relative; }
+.showcase-inner {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  padding: 0 var(--space-6);
+}
+.product-stage { perspective: 1200px; }
+.product-card {
+  width: 320px;
+  height: 420px;
+  border-radius: 8px;
+  background: linear-gradient(160deg, #5a3d2b, #2e1e14);
+  border: 1px solid var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  text-align: center;
+  padding: var(--space-3);
+}
+.product-label {
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+.showcase-copy { max-width: 380px; }
+.showcase-title { font-size: 2.5rem; margin-bottom: var(--space-3); }
+.showcase-text { color: #b8b6b0; font-size: 1.05rem; }
+@media (max-width: 800px) {
+  .showcase-inner { flex-direction: column; gap: var(--space-4); }
+  .product-card { width: 240px; height: 320px; }
+}
