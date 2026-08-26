@@ -183,3 +183,5 @@ body {
 .footer-links a:hover { color: var(--color-accent); }
 .footer-bottom { text-align: center; color: #6b6963; font-size: 0.85rem; border-top: 1px solid #2a2a2a; padding-top: var(--space-4); }
 @media (max-width: 800px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+
+.shop-empty { text-align: center; color: #6b6963; grid-column: 1 / -1; }

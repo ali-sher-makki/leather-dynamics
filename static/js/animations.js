@@ -39,8 +39,3 @@ gsap.from(".shop-header", {
   opacity: 0, y: 30, duration: 0.7, ease: "power3.out",
   scrollTrigger: { trigger: ".shop-header", start: "top 85%" }
 });
-
-gsap.from(".shop-card", {
-  opacity: 0, y: 30, duration: 0.6, ease: "power3.out", stagger: 0.12,
-  scrollTrigger: { trigger: ".shop-grid", start: "top 80%" }
-});
