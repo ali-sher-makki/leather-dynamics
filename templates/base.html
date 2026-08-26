@@ -8,6 +8,20 @@
 <link rel="stylesheet" href='{% static "css/style.css" %}'>
 </head>
 <body>
+<nav class="floating-nav">
+  <div class="nav-brand">
+    <span class="nav-dot"></span>
+    Leather Dynamics
+  </div>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">Shop</a>
+    <a href="#">Our Craft</a>
+    <a href="#">Contact</a>
+  </div>
+  <a href="#" class="nav-cta">Get in Touch</a>
+</nav>
+
 {% block content %}{% endblock %}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
