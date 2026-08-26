@@ -11,6 +11,17 @@ gsap.timeline({ defaults: { ease: "power3.out" } })
   .from(".hero-sub", { opacity: 0, y: 20, duration: 0.7 }, "-=0.5")
   .from(".btn-primary", { opacity: 0, y: 20, duration: 0.6 }, "-=0.4");
 
+gsap.from(".story-content", {
+  opacity: 0,
+  y: 40,
+  duration: 0.9,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: ".story",
+    start: "top 75%"
+  }
+});
+
 gsap.to(".product-card", {
   rotateY: 360,
   ease: "none",

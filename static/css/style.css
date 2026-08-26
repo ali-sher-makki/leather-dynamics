@@ -55,6 +55,16 @@ body {
 }
 .btn-primary:hover { background: var(--color-accent); color: var(--color-bg); }
 
+.story {
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  border-top: 1px solid #2a2a2a;
+  border-bottom: 1px solid #2a2a2a;
+}
+.story-content { max-width: 640px; margin: 0 auto; }
+.story-title { font-size: 2.25rem; margin-bottom: var(--space-3); }
+.story-text { color: #b8b6b0; font-size: 1.05rem; }
+
 .showcase { height: 300vh; position: relative; }
 .showcase-inner {
   position: sticky;
