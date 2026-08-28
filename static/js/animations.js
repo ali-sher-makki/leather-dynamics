@@ -42,3 +42,8 @@ gsap.from(".shop-header", {
   opacity: 0, y: 30, duration: 0.7, ease: "power3.out",
   scrollTrigger: { trigger: ".shop-header", start: "top 85%" }
 });
+
+gsap.from(".contact-inner", {
+  opacity: 0, y: 40, duration: 0.8, ease: "power3.out",
+  scrollTrigger: { trigger: ".contact", start: "top 80%" }
+});

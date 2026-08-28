@@ -193,3 +193,23 @@ body {
 .footer-links a:hover { color: var(--color-accent); }
 .footer-bottom { text-align: center; color: #6b6963; font-size: 0.85rem; border-top: 1px solid #2a2a2a; padding-top: var(--space-4); }
 @media (max-width: 800px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+
+.contact { padding: var(--space-8) var(--space-6); text-align: center; border-top: 1px solid #2a2a2a; }
+.contact-inner { max-width: 500px; margin: 0 auto; }
+.contact-title { font-size: 2.25rem; margin-bottom: var(--space-4); }
+.contact-form { display: flex; flex-direction: column; gap: var(--space-3); text-align: left; }
+.contact-form input, .contact-form textarea {
+  background: var(--color-surface);
+  border: 1px solid #2a2a2a;
+  color: var(--color-text);
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+.contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--color-accent); }
+.contact-form button { align-self: center; margin-top: var(--space-2); cursor: pointer; background: transparent; }
+.form-status { text-align: center; font-size: 0.9rem; min-height: 1.2em; }
+.form-status.success { color: var(--color-accent); }
+.form-status.error { color: #d9534f; }

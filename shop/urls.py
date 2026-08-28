@@ -8,4 +8,5 @@ router.register("products", views.ProductViewSet, basename="product")
 urlpatterns = [
     path("", views.home, name="home"),
     path("api/", include(router.urls)),
+    path("api/contact/", views.ContactMessageCreateView.as_view(), name="contact-create"),
 ]

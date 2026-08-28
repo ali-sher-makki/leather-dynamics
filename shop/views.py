@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from rest_framework import viewsets
-from .models import Product
-from .serializers import ProductSerializer
+from rest_framework import viewsets, generics
+from .models import Product, ContactMessage
+from .serializers import ProductSerializer, ContactMessageSerializer
 
 def home(request):
     return render(request, "home.html")
@@ -9,3 +9,7 @@ def home(request):
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+class ContactMessageCreateView(generics.CreateAPIView):
+    queryset = ContactMessage.objects.all()
+    serializer_class = ContactMessageSerializer
