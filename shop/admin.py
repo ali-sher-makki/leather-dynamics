@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Product, ContactMessage
+from .models import Product, QuoteRequest, Category
 
+admin.site.register(Category)
 admin.site.register(Product)
-admin.site.register(ContactMessage)
+admin.site.register(QuoteRequest)

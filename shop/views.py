@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, generics
-from .models import Product, ContactMessage
-from .serializers import ProductSerializer, ContactMessageSerializer
+from .models import Product, QuoteRequest
+from .serializers import ProductSerializer, QuoteRequestSerializer
 
 def home(request):
     return render(request, "home.html")
@@ -14,10 +14,13 @@ def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     return render(request, "product_detail.html", {"product": product})
 
+def contact_page(request):
+    return render(request, "contact.html")
+
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-class ContactMessageCreateView(generics.CreateAPIView):
-    queryset = ContactMessage.objects.all()
-    serializer_class = ContactMessageSerializer
+class QuoteRequestCreateView(generics.CreateAPIView):
+    queryset = QuoteRequest.objects.all()
+    serializer_class = QuoteRequestSerializer

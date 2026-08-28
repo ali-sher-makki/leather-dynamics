@@ -4,7 +4,12 @@ document.getElementById("contact-form").addEventListener("submit", async functio
   const status = document.getElementById("form-status");
   const data = {
     name: form.name.value,
-    email: form.email.value,
+    company_name: form.company_name.value,
+    country: form.country.value,
+    contact_info: form.contact_info.value,
+    product_required: form.product_required.value,
+    quantity: form.quantity.value,
+    customization_requirements: form.customization_requirements.value,
     message: form.message.value
   };
 
@@ -12,13 +17,13 @@ document.getElementById("contact-form").addEventListener("submit", async functio
   status.className = "form-status";
 
   try {
-    const res = await fetch("/api/contact/", {
+    const res = await fetch("/api/quote/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
     if (res.ok) {
-      status.textContent = "Message sent - we will get back to you soon.";
+      status.textContent = "Request sent - we will get back to you soon.";
       status.classList.add("success");
       form.reset();
     } else {

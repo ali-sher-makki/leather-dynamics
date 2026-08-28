@@ -235,3 +235,68 @@ body {
 @media (max-width: 800px) {
   .product-detail-grid { grid-template-columns: 1fr; }
 }
+
+.hero-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.btn-secondary {
+  display: inline-block;
+  padding: 14px 36px;
+  border: 1px solid #3a3a3a;
+  color: var(--color-text);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.btn-secondary:hover { border-color: var(--color-accent); color: var(--color-accent); }
+
+.why-choose { padding: var(--space-8) var(--space-6); max-width: 1200px; margin: 0 auto; }
+.why-choose-header { text-align: center; margin-bottom: var(--space-6); }
+.why-choose-title { font-size: 2.25rem; margin-top: var(--space-2); }
+.why-choose-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-5);
+}
+.why-card {
+  padding: var(--space-4);
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  text-align: center;
+}
+.why-card h3 { color: var(--color-accent); font-size: 1.1rem; margin-bottom: var(--space-2); }
+.why-card p { color: #b8b6b0; font-size: 0.95rem; }
+
+.custom-orders {
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  background: var(--color-surface);
+  border-top: 1px solid #2a2a2a;
+  border-bottom: 1px solid #2a2a2a;
+}
+.custom-orders-inner { max-width: 640px; margin: 0 auto; }
+.custom-orders-title { font-size: 2.1rem; margin-bottom: var(--space-3); }
+.custom-orders-text { color: #b8b6b0; margin-bottom: var(--space-4); }
+
+.contact-page { padding: 160px var(--space-6) var(--space-8); max-width: 1100px; margin: 0 auto; }
+.contact-page-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--space-6); align-items: start; }
+.contact-page-title { font-size: 2.25rem; margin: var(--space-2) 0 var(--space-4); }
+.contact-details-block {
+  background: var(--color-surface);
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: var(--space-5);
+}
+.contact-details-title { font-size: 1.5rem; margin: var(--space-2) 0 var(--space-4); }
+.contact-details-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+.contact-details-list a { color: var(--color-accent); text-decoration: none; }
+.contact-details-list a:hover { text-decoration: underline; }
+@media (max-width: 800px) {
+  .contact-page-grid { grid-template-columns: 1fr; }
+}
+
+.shop-grid {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 280px));
+  justify-content: center;
+}
+.shop-card-category { color: #6b6963; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }

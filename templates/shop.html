@@ -8,10 +8,11 @@
   </div>
   <div class="shop-grid">
     {% for product in products %}
-    <a href="{% url 'product-detail' product.id %}" class="shop-card">
-      <div class="shop-card-image" {% if product.image %}style="background-image:url('{{ product.image }}');background-size:cover;background-position:center;"{% endif %}></div>
+    <a href="{% url 'product-page' product.id %}" class="shop-card">
+      <div class="shop-card-image" {% if product.image %}style="background-image:url('{{ product.image.url }}');background-size:cover;background-position:center;"{% endif %}></div>
+      {% if product.category %}<p class="shop-card-category">{{ product.category }}</p>{% endif %}
       <h3 class="shop-card-name">{{ product.name }}</h3>
-      <p class="shop-card-price">${{ product.price }}</p>
+      <p class="shop-card-price">{% if product.price %}${{ product.price }}{% else %}Contact for Pricing{% endif %}</p>
     </a>
     {% empty %}
     <p class="shop-empty">New pieces coming soon.</p>

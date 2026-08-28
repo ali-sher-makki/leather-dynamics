@@ -4,22 +4,25 @@
 <section class="hero">
   <div class="hero-grid">
     <div class="hero-content">
-      <span class="eyebrow">Handcrafted Leather Goods</span>
-      <h1 class="hero-title">Leather Dynamics</h1>
-      <p class="hero-sub">Built to outlast trends. Every stitch, cut, and finish done by hand.</p>
-      <a href="{% url 'shop-list' %}" class="btn-primary">Explore the Collection</a>
+      <span class="eyebrow">Leather Products Manufacturer &amp; Supplier</span>
+      <h1 class="hero-title">Leather Dynamic</h1>
+      <p class="hero-sub">Quality leather products for businesses, brands, retailers and wholesale buyers. Manufactured in Sialkot, Pakistan.</p>
+      <div class="hero-actions">
+        <a href="{% url 'shop-list' %}" class="btn-primary">View Products</a>
+        <a href="{% url 'contact-page' %}" class="btn-secondary">Request a Quote</a>
+      </div>
     </div>
     <div class="hero-image">
-      <img src="{% static 'img/hero-badge.png' %}" alt="Leather Dynamics badge">
+      <img src="{% static 'img/hero-badge.png' %}" alt="Leather Dynamic badge">
     </div>
   </div>
 </section>
 
 <section class="story" id="our-craft">
   <div class="story-content">
-    <span class="eyebrow">Our Craft</span>
-    <h2 class="story-title">Made to Endure</h2>
-    <p class="story-text">Every piece begins as a single hide, chosen for grain and character, then cut, stitched, and finished entirely by hand in small batches. No shortcuts, no synthetic fillers - just leather that ages the way it was meant to.</p>
+    <span class="eyebrow">About Us</span>
+    <h2 class="story-title">Manufactured in Sialkot, Pakistan</h2>
+    <p class="story-text">Leather Dynamic is a leather products manufacturer and supplier based in Sialkot, Pakistan. We focus on quality, durability and clean finishing across our full range - leather gloves, safety gloves, safety aprons, kitchen aprons, leather belts and leather wallets. We welcome wholesale and custom orders from businesses, retailers, distributors and brands worldwide.</p>
   </div>
 </section>
 
@@ -27,13 +30,51 @@
   <div class="showcase-inner">
     <div class="product-stage">
       <div class="product-card">
-        <span class="product-label">Signature Weekender Bag</span>
+        <span class="product-label">Precision-Crafted Leather</span>
       </div>
     </div>
     <div class="showcase-copy">
-      <h2 class="showcase-title">Full-Grain Leather</h2>
-      <p class="showcase-text">Every hide is selected by hand and tanned for a lifetime of wear, developing a deeper character with every year you carry it.</p>
+      <h2 class="showcase-title">Built for Durability</h2>
+      <p class="showcase-text">Every product is finished with attention to durability and comfort, made to perform through daily professional use - on a job site, in a kitchen, or on the move.</p>
     </div>
+  </div>
+</section>
+
+<section class="why-choose">
+  <div class="why-choose-header">
+    <span class="eyebrow">Why Choose Us</span>
+    <h2 class="why-choose-title">Why Choose Leather Dynamic</h2>
+  </div>
+  <div class="why-choose-grid">
+    <div class="why-card">
+      <h3>Quality Products</h3>
+      <p>We focus on quality, durability and clean finishing.</p>
+    </div>
+    <div class="why-card">
+      <h3>Custom Orders</h3>
+      <p>We can discuss custom designs, sizes, colors, branding and other requirements.</p>
+    </div>
+    <div class="why-card">
+      <h3>Wholesale Supply</h3>
+      <p>We welcome bulk orders from wholesalers, retailers, brands and distributors.</p>
+    </div>
+    <div class="why-card">
+      <h3>Professional Service</h3>
+      <p>We value clear communication and customer requirements.</p>
+    </div>
+    <div class="why-card">
+      <h3>Made in Sialkot, Pakistan</h3>
+      <p>Our business is based in Sialkot, Pakistan.</p>
+    </div>
+  </div>
+</section>
+
+<section class="custom-orders">
+  <div class="custom-orders-inner">
+    <span class="eyebrow">Custom Orders &amp; Wholesale</span>
+    <h2 class="custom-orders-title">Your Product. Your Brand. Your Requirements.</h2>
+    <p class="custom-orders-text">We welcome wholesale and international inquiries from wholesalers, retailers, distributors, brands and importers. Custom designs, sizes, colors, logo branding, packaging and bulk quantities - all discussed to match your requirements. Worldwide inquiries welcome.</p>
+    <a href="{% url 'contact-page' %}" class="btn-primary">Request a Quote</a>
   </div>
 </section>
 
@@ -47,23 +88,8 @@
     <a href="{% url 'shop-list' %}" class="btn-primary">View Full Collection</a>
   </div>
 </section>
-
-<section class="contact" id="contact">
-  <div class="contact-inner">
-    <span class="eyebrow">Get in Touch</span>
-    <h2 class="contact-title">Have a Question?</h2>
-    <form id="contact-form" class="contact-form">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-      <button type="submit" class="btn-primary">Send Message</button>
-      <p class="form-status" id="form-status"></p>
-    </form>
-  </div>
-</section>
 {% endblock %}
 
 {% block extra_js %}
 <script src='{% static "js/shop.js" %}'></script>
-<script src='{% static "js/contact.js" %}'></script>
 {% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section class="contact-page">
+  <div class="contact-page-grid">
+    <div class="contact-form-block">
+      <span class="eyebrow">Request a Quote</span>
+      <h1 class="contact-page-title">Tell Us What You Need</h1>
+      <form id="contact-form" class="contact-form">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="company_name" placeholder="Company Name">
+        <input type="text" name="country" placeholder="Country">
+        <input type="text" name="contact_info" placeholder="Email / WhatsApp" required>
+        <input type="text" name="product_required" placeholder="Product Required">
+        <input type="text" name="quantity" placeholder="Quantity">
+        <textarea name="customization_requirements" placeholder="Customization Requirements" rows="3"></textarea>
+        <textarea name="message" placeholder="Message" rows="4"></textarea>
+        <button type="submit" class="btn-primary">Send Request</button>
+        <p class="form-status" id="form-status"></p>
+      </form>
+    </div>
+    <div class="contact-details-block">
+      <span class="eyebrow">Contact Us</span>
+      <h2 class="contact-details-title">Leather Dynamic</h2>
+      <ul class="contact-details-list">
+        <li><strong>Email:</strong> <a href="mailto:leatherdynamicmfg@gmail.com">leatherdynamicmfg@gmail.com</a></li>
+        <li><strong>City:</strong> Sialkot</li>
+        <li><strong>Country:</strong> Pakistan</li>
+        <li><strong>Phone:</strong> <a href="tel:+923095898750">0309 5898750</a></li>
+        <li><strong>Phone:</strong> <a href="tel:+923088089950">0308 8089950</a></li>
+        <li><strong>Instagram:</strong> <a href="https://instagram.com/leatherdynamic1" target="_blank" rel="noopener">@leatherdynamic1</a></li>
+        <li><strong>Facebook:</strong> <a href="https://facebook.com/leatherdynamic" target="_blank" rel="noopener">@leatherdynamic</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src='{% static "js/contact.js" %}'></script>
+{% endblock %}
