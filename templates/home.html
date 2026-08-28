@@ -1,11 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 <section class="hero">
-  <div class="hero-content">
-    <span class="eyebrow">Handcrafted Leather Goods</span>
-    <h1 class="hero-title">Leather Dynamics</h1>
-    <p class="hero-sub">Built to outlast trends. Every stitch, cut, and finish done by hand.</p>
-    <a href="#" class="btn-primary">Explore the Collection</a>
+  <div class="hero-grid">
+    <div class="hero-content">
+      <span class="eyebrow">Handcrafted Leather Goods</span>
+      <h1 class="hero-title">Leather Dynamics</h1>
+      <p class="hero-sub">Built to outlast trends. Every stitch, cut, and finish done by hand.</p>
+      <a href="#" class="btn-primary">Explore the Collection</a>
+    </div>
+    <div class="hero-image">
+      <img src="{% static 'img/hero-badge.png' %}" alt="Leather Dynamics badge">
+    </div>
   </div>
 </section>
 

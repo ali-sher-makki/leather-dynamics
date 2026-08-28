@@ -18,7 +18,10 @@ gsap.timeline({ defaults: { ease: "power3.out" } })
   .from(".eyebrow", { opacity: 0, y: 20, duration: 0.6 }, 0.3)
   .from(".hero-title", { opacity: 0, y: 30, duration: 0.8 }, "-=0.3")
   .from(".hero-sub", { opacity: 0, y: 20, duration: 0.7 }, "-=0.5")
-  .from(".btn-primary", { opacity: 0, y: 20, duration: 0.6 }, "-=0.4");
+  .from(".btn-primary", { opacity: 0, y: 20, duration: 0.6 }, "-=0.4")
+  .from(".hero-image img", { opacity: 0, scale: 0.85, duration: 1 }, "-=0.8");
+
+gsap.to(".hero-image img", { y: 15, duration: 2.5, ease: "sine.inOut", repeat: -1, yoyo: true });
 
 gsap.from(".story-content", {
   opacity: 0, y: 40, duration: 0.9, ease: "power3.out",
