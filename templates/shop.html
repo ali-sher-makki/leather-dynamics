@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section class="shop-page">
+  <div class="shop-page-header">
+    <span class="eyebrow">The Collection</span>
+    <h1 class="shop-page-title">Shop the Range</h1>
+  </div>
+  <div class="shop-grid">
+    {% for product in products %}
+    <a href="{% url 'product-detail' product.id %}" class="shop-card">
+      <div class="shop-card-image" {% if product.image %}style="background-image:url('{{ product.image }}');background-size:cover;background-position:center;"{% endif %}></div>
+      <h3 class="shop-card-name">{{ product.name }}</h3>
+      <p class="shop-card-price">${{ product.price }}</p>
+    </a>
+    {% empty %}
+    <p class="shop-empty">New pieces coming soon.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

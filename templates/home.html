@@ -7,7 +7,7 @@
       <span class="eyebrow">Handcrafted Leather Goods</span>
       <h1 class="hero-title">Leather Dynamics</h1>
       <p class="hero-sub">Built to outlast trends. Every stitch, cut, and finish done by hand.</p>
-      <a href="#" class="btn-primary">Explore the Collection</a>
+      <a href="{% url 'shop-list' %}" class="btn-primary">Explore the Collection</a>
     </div>
     <div class="hero-image">
       <img src="{% static 'img/hero-badge.png' %}" alt="Leather Dynamics badge">
@@ -15,7 +15,7 @@
   </div>
 </section>
 
-<section class="story">
+<section class="story" id="our-craft">
   <div class="story-content">
     <span class="eyebrow">Our Craft</span>
     <h2 class="story-title">Made to Endure</h2>
@@ -43,6 +43,9 @@
     <h2 class="shop-title">Shop the Range</h2>
   </div>
   <div class="shop-grid" id="shop-grid"></div>
+  <div class="shop-viewall">
+    <a href="{% url 'shop-list' %}" class="btn-primary">View Full Collection</a>
+  </div>
 </section>
 
 <section class="contact" id="contact">
@@ -58,30 +61,9 @@
     </form>
   </div>
 </section>
+{% endblock %}
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <h3>Leather Dynamics</h3>
-      <p>Handcrafted leather goods, made to last generations.</p>
-    </div>
-    <div class="footer-links">
-      <h4>Shop</h4>
-      <a href="#">Bags</a>
-      <a href="#">Wallets</a>
-      <a href="#">Belts</a>
-    </div>
-    <div class="footer-links">
-      <h4>Company</h4>
-      <a href="#">Our Craft</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <div class="footer-links">
-      <h4>Follow</h4>
-      <a href="#">Instagram</a>
-      <a href="#">Facebook</a>
-    </div>
-  </div>
-  <p class="footer-bottom">&copy; 2026 Leather Dynamics. All rights reserved.</p>
-</footer>
+{% block extra_js %}
+<script src='{% static "js/shop.js" %}'></script>
+<script src='{% static "js/contact.js" %}'></script>
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section class="product-detail">
+  <div class="product-detail-grid">
+    <div class="product-detail-image" {% if product.image %}style="background-image:url('{{ product.image }}');background-size:cover;background-position:center;"{% endif %}></div>
+    <div class="product-detail-info">
+      <span class="eyebrow">{{ product.category|default:"Leather Dynamics" }}</span>
+      <h1 class="product-detail-name">{{ product.name }}</h1>
+      <p class="product-detail-price">${{ product.price }}</p>
+      <p class="product-detail-description">{{ product.description }}</p>
+      <a href="{% url 'shop-list' %}" class="btn-primary">Back to Shop</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
