@@ -1,5 +1,6 @@
 async function loadProducts() {
   const grid = document.getElementById("shop-grid");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   try {
     const res = await fetch("/api/products/");
     const products = await res.json();
@@ -18,11 +19,13 @@ async function loadProducts() {
       </div>
     `).join("");
 
-    gsap.from(".shop-card", {
-      opacity: 0, y: 30, duration: 0.6, ease: "power3.out", stagger: 0.12,
-      scrollTrigger: { trigger: ".shop-grid", start: "top 80%" }
-    });
-    ScrollTrigger.refresh();
+    if (!prefersReducedMotion) {
+      gsap.from(".shop-card", {
+        opacity: 0, y: 30, duration: 0.6, ease: "power3.out", stagger: 0.12,
+        scrollTrigger: { trigger: ".shop-grid", start: "top 80%" }
+      });
+      ScrollTrigger.refresh();
+    }
   } catch (err) {
     grid.innerHTML = '<p class="shop-empty">Could not load products right now.</p>';
     console.error(err);

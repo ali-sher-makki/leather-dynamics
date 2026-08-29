@@ -30,6 +30,7 @@
   <div class="showcase-inner">
     <div class="product-stage">
       <div class="product-card">
+        <img src="{% static 'img/showcase-product.jpg' %}" alt="Leather Dynamic product" class="product-card-image">
         <span class="product-label">Precision-Crafted Leather</span>
       </div>
     </div>
@@ -78,18 +79,21 @@
   </div>
 </section>
 
-<section class="shop">
-  <div class="shop-header">
-    <span class="eyebrow">The Collection</span>
-    <h2 class="shop-title">Shop the Range</h2>
+<section class="categories">
+  <div class="categories-header">
+    <span class="eyebrow">Our Range</span>
+    <h2 class="categories-title">Shop by Category</h2>
   </div>
-  <div class="shop-grid" id="shop-grid"></div>
+  <div class="category-grid">
+    {% for category in categories %}
+    <a href="{% url 'shop-category' category.id %}" class="category-card">
+      <div class="category-card-image" {% if category.image %}style="background-image:url('{{ category.image.url }}');background-size:cover;background-position:center;"{% endif %}></div>
+      <h3>{{ category.name }}</h3>
+    </a>
+    {% endfor %}
+  </div>
   <div class="shop-viewall">
-    <a href="{% url 'shop-list' %}" class="btn-primary">View Full Collection</a>
+    <a href="{% url 'shop-list' %}" class="btn-primary">Shop Now</a>
   </div>
 </section>
-{% endblock %}
-
-{% block extra_js %}
-<script src='{% static "js/shop.js" %}'></script>
 {% endblock %}

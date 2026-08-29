@@ -1,14 +1,24 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, generics
-from .models import Product, QuoteRequest
+from .models import Product, QuoteRequest, Category
 from .serializers import ProductSerializer, QuoteRequestSerializer
 
 def home(request):
-    return render(request, "home.html")
+    categories = Category.objects.all()
+    return render(request, "home.html", {"categories": categories})
 
-def shop_list(request):
+def shop_categories(request):
+    categories = Category.objects.all()
+    return render(request, "shop.html", {"categories": categories})
+
+def shop_all_products(request):
     products = Product.objects.all()
-    return render(request, "shop.html", {"products": products})
+    return render(request, "shop_products.html", {"products": products, "category": None})
+
+def shop_category_products(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    products = Product.objects.filter(category=category)
+    return render(request, "shop_products.html", {"products": products, "category": category})
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)

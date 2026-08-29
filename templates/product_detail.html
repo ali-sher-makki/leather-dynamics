@@ -3,7 +3,7 @@
 {% block content %}
 <section class="product-detail">
   <div class="product-detail-grid">
-    <div class="product-detail-image" {% if product.image %}style="background-image:url('{{ product.image }}');background-size:cover;background-position:center;"{% endif %}></div>
+    <div class="product-detail-image" {% if product.image %}style="background-image:url('{{ product.image.url }}');background-size:cover;background-position:center;"{% endif %}></div>
     <div class="product-detail-info">
       <span class="eyebrow">{{ product.category|default:"Leather Dynamic" }}</span>
       <h1 class="product-detail-name">{{ product.name }}</h1>
