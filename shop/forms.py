@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from .models import Profile
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -33,3 +34,20 @@ class LoginForm(AuthenticationForm):
         self.fields["password"].widget.attrs["placeholder"] = "Password"
         self.fields["username"].label = ""
         self.fields["password"].label = ""
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["company_name", "country", "phone", "address"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        placeholders = {
+            "company_name": "Company Name",
+            "country": "Country",
+            "phone": "Phone Number",
+            "address": "Business Address",
+        }
+        for name, field in self.fields.items():
+            field.widget.attrs["placeholder"] = placeholders.get(name, "")
+            field.label = ""

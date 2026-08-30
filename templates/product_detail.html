@@ -11,7 +11,18 @@
         {% if product.price %}${{ product.price }}{% else %}<a href="{% url 'contact-page' %}">Contact for Pricing</a>{% endif %}
       </p>
       <p class="product-detail-description">{{ product.description }}</p>
-      <a href="{% url 'shop-list' %}" class="btn-primary">Back to Shop</a>
+      <div class="product-detail-actions">
+        <a href="{% url 'shop-list' %}" class="btn-primary">Back to Shop</a>
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'wishlist-toggle' product.id %}">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.path }}">
+          <button type="submit" class="btn-secondary">
+            {% if product.id in wishlist_ids %}&hearts; Saved{% else %}&hearts; Add to Wishlist{% endif %}
+          </button>
+        </form>
+        {% endif %}
+      </div>
     </div>
   </div>
 </section>

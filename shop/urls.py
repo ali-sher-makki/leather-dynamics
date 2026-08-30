@@ -17,6 +17,9 @@ urlpatterns = [
     path("register/", views.register_view, name="register"),
     path("login/", auth_views.LoginView.as_view(template_name="login.html", authentication_form=LoginForm), name="login"),
     path("logout/", auth_views.LogoutView.as_view(next_page="home"), name="logout"),
+    path("profile/", views.profile_view, name="profile"),
+    path("wishlist/", views.wishlist_view, name="wishlist"),
+    path("wishlist/toggle/<int:pk>/", views.wishlist_toggle, name="wishlist-toggle"),
     path("api/", include(router.urls)),
     path("api/quote/", views.QuoteRequestCreateView.as_view(), name="quote-create"),
 ]

@@ -3,19 +3,17 @@
 {% block content %}
 <section class="shop-page">
   <div class="shop-page-header">
-    <span class="eyebrow">{% if category %}Category{% else %}The Collection{% endif %}</span>
-    <h1 class="shop-page-title">{% if category %}{{ category.name }}{% else %}All Products{% endif %}</h1>
+    <span class="eyebrow">Saved Items</span>
+    <h1 class="shop-page-title">My Wishlist</h1>
   </div>
   <div class="shop-grid">
     {% for product in products %}
     <div class="shop-card">
-      {% if user.is_authenticated %}
       <form method="post" action="{% url 'wishlist-toggle' product.id %}" class="wishlist-form">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ request.path }}">
-        <button type="submit" class="wishlist-btn {% if product.id in wishlist_ids %}active{% endif %}" aria-label="Toggle wishlist">&hearts;</button>
+        <button type="submit" class="wishlist-btn active" aria-label="Remove from wishlist">&hearts;</button>
       </form>
-      {% endif %}
       <a href="{% url 'product-page' product.id %}" class="shop-card-link">
         <div class="shop-card-image" {% if product.image %}style="background-image:url('{{ product.image.url }}');background-size:cover;background-position:center;"{% endif %}></div>
         {% if product.category %}<p class="shop-card-category">{{ product.category }}</p>{% endif %}
@@ -24,11 +22,8 @@
       </a>
     </div>
     {% empty %}
-    <p class="shop-empty">No products here yet.</p>
+    <p class="shop-empty">Nothing saved yet - browse the <a href="{% url 'shop-all' %}">shop</a> and tap the heart on anything you like.</p>
     {% endfor %}
-  </div>
-  <div class="shop-viewall">
-    <a href="{% url 'shop-list' %}" class="btn-secondary">All Categories</a>
   </div>
 </section>
 {% endblock %}
