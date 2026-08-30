@@ -364,3 +364,21 @@ body {
 .category-card-image { aspect-ratio: 4 / 3; background: linear-gradient(160deg, #5a3d2b, #2e1e14); background-size: cover; background-position: center; }
 .category-card h3 { padding: var(--space-3); color: var(--color-text); font-size: 1.05rem; letter-spacing: 0.02em; }
 .category-card:hover { border-color: var(--color-accent); transform: translateY(-4px); }
+
+.hero-image img {
+  border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  filter: none;
+  box-shadow: 0 0 70px rgba(201, 160, 77, 0.18);
+}
+
+.nav-link-button { background: none; border: none; color: #d8d6d0; font-size: 0.9rem; cursor: pointer; font-family: inherit; padding: 0; }
+.nav-link-button:hover { color: var(--color-accent); }
+.nav-logout-form { display: flex; align-items: center; }
+.mobile-menu form { width: 100%; display: flex; justify-content: center; }
+
+.auth-form-block { max-width: 420px; margin: 0 auto; text-align: center; }
+.auth-form-block .contact-form { text-align: left; }
+.auth-switch { margin-top: var(--space-3); color: #b8b6b0; font-size: 0.9rem; text-align: center; }
+.auth-switch a { color: var(--color-accent); text-decoration: none; }
