@@ -12,7 +12,14 @@
       </p>
       <p class="product-detail-description">{{ product.description }}</p>
       <div class="product-detail-actions">
-        <a href="{% url 'shop-list' %}" class="btn-primary">Back to Shop</a>
+        <a href="{% url 'shop-list' %}" class="btn-secondary">Back to Shop</a>
+        {% if product.price and user.is_authenticated %}
+        <form method="post" action="{% url 'cart-add' product.id %}" class="product-detail-cart-form">
+          {% csrf_token %}
+          <input type="number" name="quantity" value="1" min="1">
+          <button type="submit" class="btn-primary">Add to Cart</button>
+        </form>
+        {% endif %}
         {% if user.is_authenticated %}
         <form method="post" action="{% url 'wishlist-toggle' product.id %}">
           {% csrf_token %}

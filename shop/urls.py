@@ -20,6 +20,12 @@ urlpatterns = [
     path("profile/", views.profile_view, name="profile"),
     path("wishlist/", views.wishlist_view, name="wishlist"),
     path("wishlist/toggle/<int:pk>/", views.wishlist_toggle, name="wishlist-toggle"),
+    path("cart/", views.cart_view, name="cart"),
+    path("cart/add/<int:pk>/", views.cart_add, name="cart-add"),
+    path("cart/update/<int:pk>/", views.cart_update, name="cart-update"),
+    path("cart/remove/<int:pk>/", views.cart_remove, name="cart-remove"),
+    path("checkout/", views.checkout_view, name="checkout"),
+    path("order/<int:pk>/confirmation/", views.order_confirmation, name="order-confirmation"),
     path("api/", include(router.urls)),
     path("api/quote/", views.QuoteRequestCreateView.as_view(), name="quote-create"),
 ]

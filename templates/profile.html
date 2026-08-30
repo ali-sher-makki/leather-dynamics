@@ -26,7 +26,22 @@
     </div>
     <div class="profile-orders-block">
       <h2 class="profile-section-title">Recent Orders</h2>
+      {% for order in orders %}
+      <div class="order-summary">
+        <div class="order-summary-header">
+          <span>Order #{{ order.id }}</span>
+          <span class="order-status">{{ order.get_status_display }}</span>
+        </div>
+        <ul class="order-summary-items">
+          {% for item in order.items.all %}
+          <li>{{ item.product_name }} x{{ item.quantity }} - ${{ item.subtotal }}</li>
+          {% endfor %}
+        </ul>
+        <p class="order-summary-total">Total: ${{ order.total_amount }} &middot; {{ order.created_at|date:"M d, Y" }}</p>
+      </div>
+      {% empty %}
       <p class="profile-empty">No orders yet - once you place an order, it will show up here.</p>
+      {% endfor %}
     </div>
   </div>
 </section>

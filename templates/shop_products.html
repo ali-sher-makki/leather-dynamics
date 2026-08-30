@@ -6,6 +6,9 @@
     <span class="eyebrow">{% if category %}Category{% else %}The Collection{% endif %}</span>
     <h1 class="shop-page-title">{% if category %}{{ category.name }}{% else %}All Products{% endif %}</h1>
   </div>
+  {% if messages %}
+    {% for message in messages %}<p class="form-status {{ message.tags }}">{{ message }}</p>{% endfor %}
+  {% endif %}
   <div class="shop-grid">
     {% for product in products %}
     <div class="shop-card">
@@ -22,6 +25,12 @@
         <h3 class="shop-card-name">{{ product.name }}</h3>
         <p class="shop-card-price">{% if product.price %}${{ product.price }}{% else %}Contact for Pricing{% endif %}</p>
       </a>
+      {% if product.price and user.is_authenticated %}
+      <form method="post" action="{% url 'cart-add' product.id %}" class="shop-card-cart-form">
+        {% csrf_token %}
+        <button type="submit" class="btn-secondary shop-card-add-btn">Add to Cart</button>
+      </form>
+      {% endif %}
     </div>
     {% empty %}
     <p class="shop-empty">No products here yet.</p>

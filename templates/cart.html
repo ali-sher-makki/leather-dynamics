@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section class="shop-page">
+  <div class="shop-page-header">
+    <span class="eyebrow">Your Cart</span>
+    <h1 class="shop-page-title">Cart</h1>
+  </div>
+  {% if messages %}
+    {% for message in messages %}<p class="form-status {{ message.tags }}">{{ message }}</p>{% endfor %}
+  {% endif %}
+  {% if items %}
+  <div class="cart-list">
+    {% for item in items %}
+    <div class="cart-row">
+      <div class="cart-row-image" {% if item.product.image %}style="background-image:url('{{ item.product.image.url }}');background-size:cover;background-position:center;"{% endif %}></div>
+      <div class="cart-row-info">
+        <h3>{{ item.product.name }}</h3>
+        <p class="cart-row-price">${{ item.product.price }} each</p>
+      </div>
+      <form method="post" action="{% url 'cart-update' item.id %}" class="cart-qty-form">
+        {% csrf_token %}
+        <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+        <button type="submit" class="btn-secondary">Update</button>
+      </form>
+      <p class="cart-row-subtotal">${{ item.subtotal }}</p>
+      <form method="post" action="{% url 'cart-remove' item.id %}">
+        {% csrf_token %}
+        <button type="submit" class="cart-remove-btn" aria-label="Remove">&times;</button>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="cart-summary">
+    <p class="cart-total">Total: ${{ total }}</p>
+    <a href="{% url 'checkout' %}" class="btn-primary">Proceed to Checkout</a>
+  </div>
+  {% else %}
+  <p class="shop-empty">Your cart is empty - <a href="{% url 'shop-all' %}">browse products</a>.</p>
+  {% endif %}
+</section>
+{% endblock %}
