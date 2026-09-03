@@ -2,6 +2,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+const themeToggle = document.getElementById("theme-toggle");
+function updateThemeIcon() {
+  const isLight = document.documentElement.getAttribute("data-theme") === "light";
+  if (themeToggle) themeToggle.innerHTML = isLight ? "&#9728;" : "&#127769;";
+}
+if (themeToggle) {
+  updateThemeIcon();
+  themeToggle.addEventListener("click", () => {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    if (isLight) {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
+    }
+    updateThemeIcon();
+  });
+}
+
 ScrollTrigger.create({
   start: "top -80",
   onUpdate: (self) => {

@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+{% endblock %}
 {% block content %}
 <section class="contact-page">
   <div class="profile-header">
@@ -7,27 +10,54 @@
   </div>
   <div class="profile-grid">
     <div class="profile-form-block">
-      <h2 class="profile-section-title">Account Details</h2>
-      <div class="profile-readonly">
-        <p><strong>Username:</strong> {{ request.user.username }}</p>
-        <p><strong>Email:</strong> {{ request.user.email }}</p>
+
+      {% if not editing %}
+      <div class="avatar-wrapper">
+        <div class="avatar-circle" {% if profile.avatar %}style="background-image:url('{{ profile.avatar.url }}');"{% endif %}>
+          {% if not profile.avatar %}<span class="avatar-initial">{{ request.user.username|slice:":1"|upper }}</span>{% endif %}
+        </div>
       </div>
+      <h2 class="profile-section-title">Account Details</h2>
+      <div class="profile-info-row"><span class="profile-info-label">Username</span><span class="profile-info-value">{{ request.user.username }}</span></div>
+      <div class="profile-info-row"><span class="profile-info-label">Email</span><span class="profile-info-value">{{ request.user.email }}</span></div>
       <h2 class="profile-section-title">Business Info</h2>
+      <div class="profile-info-row"><span class="profile-info-label">Company</span><span class="profile-info-value">{{ profile.company_name|default:"-" }}</span></div>
+      <div class="profile-info-row"><span class="profile-info-label">Country</span><span class="profile-info-value">{{ profile.country|default:"-" }}</span></div>
+      <div class="profile-info-row"><span class="profile-info-label">Phone</span><span class="profile-info-value">{{ profile.phone|default:"-" }}</span></div>
+      <div class="profile-info-row"><span class="profile-info-label">Address</span><span class="profile-info-value">{{ profile.address|default:"-" }}</span></div>
+      <a href="?edit=1" class="btn-primary profile-edit-trigger">Edit Profile</a>
+
+      {% else %}
+      <h2 class="profile-section-title">Edit Profile</h2>
       {% if messages %}
         {% for message in messages %}<p class="form-status success">{{ message }}</p>{% endfor %}
       {% endif %}
-      <form method="post" class="contact-form">
+      <form method="post" enctype="multipart/form-data" class="contact-form">
         {% csrf_token %}
-        {% for field in form %}
-          {{ field }}
-        {% endfor %}
-        <button type="submit" class="btn-primary">Save Changes</button>
+        <div class="avatar-wrapper">
+          <div class="avatar-circle" id="avatar-preview" {% if profile.avatar %}style="background-image:url('{{ profile.avatar.url }}');"{% endif %}>
+            {% if not profile.avatar %}<span class="avatar-initial" id="avatar-initial-fallback">{{ request.user.username|slice:":1"|upper }}</span>{% endif %}
+          </div>
+          <label for="avatar-picker" class="avatar-edit-btn" title="Change photo">&#9998;</label>
+          <input type="file" id="avatar-picker" accept="image/*" style="display:none;">
+        </div>
+        {{ form.avatar }}
+        {{ form.company_name }}
+        {{ form.country }}
+        {{ form.phone }}
+        {{ form.address }}
+        <div class="profile-edit-actions">
+          <button type="submit" class="btn-primary">Save Changes</button>
+          <a href="{% url 'profile' %}" class="btn-secondary">Cancel</a>
+        </div>
       </form>
+      {% endif %}
     </div>
+
     <div class="profile-orders-block">
       <h2 class="profile-section-title">Recent Orders</h2>
       {% for order in orders %}
-      <div class="order-summary">
+      <a href="{% url 'order-detail' order.id %}" class="order-summary order-summary-link">
         <div class="order-summary-header">
           <span>Order #{{ order.id }}</span>
           <span class="order-status">{{ order.get_status_display }}</span>
@@ -38,11 +68,85 @@
           {% endfor %}
         </ul>
         <p class="order-summary-total">Total: ${{ order.total_amount }} &middot; {{ order.created_at|date:"M d, Y" }}</p>
-      </div>
+      </a>
       {% empty %}
       <p class="profile-empty">No orders yet - once you place an order, it will show up here.</p>
       {% endfor %}
+      <a href="{% url 'order-history' %}" class="btn-secondary profile-view-all">View All Orders</a>
     </div>
   </div>
 </section>
+
+<div class="crop-modal-overlay" id="crop-modal" style="display:none;">
+  <div class="crop-modal">
+    <div class="crop-image-container">
+      <img id="crop-image" src="" alt="Crop preview" style="max-width:100%;">
+    </div>
+    <div class="crop-modal-actions">
+      <button type="button" class="btn-secondary" id="crop-cancel">Cancel</button>
+      <button type="button" class="btn-primary" id="crop-apply">Apply</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+<script>
+(function () {
+  const picker = document.getElementById("avatar-picker");
+  if (!picker) return;
+  const modal = document.getElementById("crop-modal");
+  const cropImage = document.getElementById("crop-image");
+  const applyBtn = document.getElementById("crop-apply");
+  const cancelBtn = document.getElementById("crop-cancel");
+  const realInput = document.getElementById("avatar-real-input");
+  const preview = document.getElementById("avatar-preview");
+  const fallback = document.getElementById("avatar-initial-fallback");
+  let cropper = null;
+
+  picker.addEventListener("change", function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (typeof Cropper === "undefined") {
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      realInput.files = dt.files;
+      preview.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
+      if (fallback) fallback.style.display = "none";
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (evt) {
+      cropImage.src = evt.target.result;
+      modal.style.display = "flex";
+      if (cropper) cropper.destroy();
+      cropper = new Cropper(cropImage, { aspectRatio: 1, viewMode: 1 });
+    };
+    reader.readAsDataURL(file);
+  });
+
+  applyBtn.addEventListener("click", function () {
+    if (!cropper) return;
+    cropper.getCroppedCanvas({ width: 400, height: 400 }).toBlob(function (blob) {
+      const file = new File([blob], "avatar.png", { type: "image/png" });
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      realInput.files = dt.files;
+      preview.style.backgroundImage = `url(${URL.createObjectURL(blob)})`;
+      if (fallback) fallback.style.display = "none";
+      modal.style.display = "none";
+      cropper.destroy();
+      cropper = null;
+    });
+  });
+
+  cancelBtn.addEventListener("click", function () {
+    modal.style.display = "none";
+    if (cropper) { cropper.destroy(); cropper = null; }
+  });
+})();
+</script>
 {% endblock %}

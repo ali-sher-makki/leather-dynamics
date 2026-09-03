@@ -7,20 +7,24 @@
     <div class="product-detail-info">
       <span class="eyebrow">{{ product.category|default:"Leather Dynamic" }}</span>
       <h1 class="product-detail-name">{{ product.name }}</h1>
+      {% if avg_rating %}
+      <p class="product-rating">&starf; {{ avg_rating|floatformat:1 }} ({{ reviews.count }} review{{ reviews.count|pluralize }})</p>
+      {% else %}
+      <p class="product-rating product-rating-empty">No reviews yet</p>
+      {% endif %}
       <p class="product-detail-price">
         {% if product.price %}${{ product.price }}{% else %}<a href="{% url 'contact-page' %}">Contact for Pricing</a>{% endif %}
       </p>
       <p class="product-detail-description">{{ product.description }}</p>
       <div class="product-detail-actions">
         <a href="{% url 'shop-list' %}" class="btn-secondary">Back to Shop</a>
-        {% if product.price and user.is_authenticated %}
+        {% if product.price %}
         <form method="post" action="{% url 'cart-add' product.id %}" class="product-detail-cart-form">
           {% csrf_token %}
           <input type="number" name="quantity" value="1" min="1">
           <button type="submit" class="btn-primary">Add to Cart</button>
         </form>
         {% endif %}
-        {% if user.is_authenticated %}
         <form method="post" action="{% url 'wishlist-toggle' product.id %}">
           {% csrf_token %}
           <input type="hidden" name="next" value="{{ request.path }}">
@@ -28,8 +32,53 @@
             {% if product.id in wishlist_ids %}&hearts; Saved{% else %}&hearts; Add to Wishlist{% endif %}
           </button>
         </form>
-        {% endif %}
       </div>
+    </div>
+  </div>
+
+  <div class="reviews-section">
+    <h2 class="reviews-title">Reviews</h2>
+
+    {% if messages %}
+      {% for message in messages %}<p class="form-status success">{{ message }}</p>{% endfor %}
+    {% endif %}
+
+    {% if user.is_authenticated %}
+      {% if user_review %}
+        <p class="review-already">You reviewed this product: &starf; {{ user_review.rating }}/5</p>
+      {% elif has_delivered_order %}
+      <form method="post" class="contact-form review-form">
+        {% csrf_token %}
+        <div class="star-rating">
+          <input type="radio" id="star5" name="rating" value="5" required><label for="star5">&starf;</label>
+          <input type="radio" id="star4" name="rating" value="4"><label for="star4">&starf;</label>
+          <input type="radio" id="star3" name="rating" value="3"><label for="star3">&starf;</label>
+          <input type="radio" id="star2" name="rating" value="2"><label for="star2">&starf;</label>
+          <input type="radio" id="star1" name="rating" value="1"><label for="star1">&starf;</label>
+        </div>
+        <textarea name="comment" placeholder="Write a review (optional)" rows="3"></textarea>
+        <button type="submit" class="btn-primary">Submit Review</button>
+      </form>
+      {% else %}
+        <p class="review-login-note">Only customers who have received this product can leave a review.</p>
+      {% endif %}
+    {% else %}
+      <p class="review-login-note"><a href="{% url 'login' %}">Login</a> to leave a review.</p>
+    {% endif %}
+
+    <div class="review-list">
+      {% for review in reviews %}
+      <div class="review-item">
+        <div class="review-item-header">
+          <span class="review-item-author">{{ review.user.username }}</span>
+          <span class="review-item-rating">&starf; {{ review.rating }}/5</span>
+        </div>
+        {% if review.comment %}<p class="review-item-comment">{{ review.comment }}</p>{% endif %}
+        <p class="review-item-date">{{ review.created_at|date:"M d, Y" }}</p>
+      </div>
+      {% empty %}
+      <p class="shop-empty">Be the first to review this product.</p>
+      {% endfor %}
     </div>
   </div>
 </section>

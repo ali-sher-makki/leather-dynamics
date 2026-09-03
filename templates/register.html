@@ -4,12 +4,21 @@
   <div class="auth-form-block">
     <span class="eyebrow">Create Account</span>
     <h1 class="contact-page-title">Register</h1>
-    <form method="post" class="contact-form">
+    <form method="post" enctype="multipart/form-data" class="contact-form">
       {% csrf_token %}
-      {% for field in form %}
-        {{ field }}
-        {% if field.errors %}<p class="form-status error">{{ field.errors|striptags }}</p>{% endif %}
-      {% endfor %}
+      {{ form.username }}
+      {% if form.username.errors %}<p class="form-status error">{{ form.username.errors|striptags }}</p>{% endif %}
+      {{ form.email }}
+      {% if form.email.errors %}<p class="form-status error">{{ form.email.errors|striptags }}</p>{% endif %}
+      {{ form.password1 }}
+      {% if form.password1.errors %}<p class="form-status error">{{ form.password1.errors|striptags }}</p>{% endif %}
+      {{ form.password2 }}
+      {% if form.password2.errors %}<p class="form-status error">{{ form.password2.errors|striptags }}</p>{% endif %}
+      {{ form.company_name }}
+      {{ form.country }}
+      <p class="form-hint">Profile Picture (optional)</p>
+      {{ form.avatar }}
+      {% if form.avatar.errors %}<p class="form-status error">{{ form.avatar.errors|striptags }}</p>{% endif %}
       <button type="submit" class="btn-primary">Create Account</button>
     </form>
     <p class="auth-switch">Already have an account? <a href="{% url 'login' %}">Login</a></p>

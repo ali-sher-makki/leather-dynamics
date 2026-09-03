@@ -6,26 +6,28 @@
     <span class="eyebrow">{% if category %}Category{% else %}The Collection{% endif %}</span>
     <h1 class="shop-page-title">{% if category %}{{ category.name }}{% else %}All Products{% endif %}</h1>
   </div>
+  <form method="get" class="shop-search-form">
+    <input type="text" name="q" placeholder="Search products..." value="{{ search_query }}">
+    <button type="submit" class="btn-secondary">Search</button>
+  </form>
   {% if messages %}
     {% for message in messages %}<p class="form-status {{ message.tags }}">{{ message }}</p>{% endfor %}
   {% endif %}
   <div class="shop-grid">
     {% for product in products %}
     <div class="shop-card">
-      {% if user.is_authenticated %}
       <form method="post" action="{% url 'wishlist-toggle' product.id %}" class="wishlist-form">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ request.path }}">
         <button type="submit" class="wishlist-btn {% if product.id in wishlist_ids %}active{% endif %}" aria-label="Toggle wishlist">&hearts;</button>
       </form>
-      {% endif %}
       <a href="{% url 'product-page' product.id %}" class="shop-card-link">
         <div class="shop-card-image" {% if product.image %}style="background-image:url('{{ product.image.url }}');background-size:cover;background-position:center;"{% endif %}></div>
         {% if product.category %}<p class="shop-card-category">{{ product.category }}</p>{% endif %}
         <h3 class="shop-card-name">{{ product.name }}</h3>
         <p class="shop-card-price">{% if product.price %}${{ product.price }}{% else %}Contact for Pricing{% endif %}</p>
       </a>
-      {% if product.price and user.is_authenticated %}
+      {% if product.price %}
       <form method="post" action="{% url 'cart-add' product.id %}" class="shop-card-cart-form">
         {% csrf_token %}
         <button type="submit" class="btn-secondary shop-card-add-btn">Add to Cart</button>
@@ -33,7 +35,7 @@
       {% endif %}
     </div>
     {% empty %}
-    <p class="shop-empty">No products here yet.</p>
+    <p class="shop-empty">No products found{% if search_query %} for "{{ search_query }}"{% endif %}.</p>
     {% endfor %}
   </div>
   <div class="shop-viewall">

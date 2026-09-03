@@ -18,6 +18,8 @@ urlpatterns = [
     path("login/", auth_views.LoginView.as_view(template_name="login.html", authentication_form=LoginForm), name="login"),
     path("logout/", auth_views.LogoutView.as_view(next_page="home"), name="logout"),
     path("profile/", views.profile_view, name="profile"),
+    path("orders/", views.order_history, name="order-history"),
+    path("orders/<int:pk>/", views.order_detail, name="order-detail"),
     path("wishlist/", views.wishlist_view, name="wishlist"),
     path("wishlist/toggle/<int:pk>/", views.wishlist_toggle, name="wishlist-toggle"),
     path("cart/", views.cart_view, name="cart"),

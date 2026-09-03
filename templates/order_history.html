@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="shop-page">
+  <div class="shop-page-header">
+    <span class="eyebrow">My Account</span>
+    <h1 class="shop-page-title">Order History</h1>
+  </div>
+  <div class="order-history-list">
+    {% for order in orders %}
+    <a href="{% url 'order-detail' order.id %}" class="order-summary order-summary-link">
+      <div class="order-summary-header">
+        <span>Order #{{ order.id }}</span>
+        <span class="order-status">{{ order.get_status_display }}</span>
+      </div>
+      <ul class="order-summary-items">
+        {% for item in order.items.all %}
+        <li>{{ item.product_name }} x{{ item.quantity }}</li>
+        {% endfor %}
+      </ul>
+      <p class="order-summary-total">Total: ${{ order.total_amount }} &middot; {{ order.created_at|date:"M d, Y" }}</p>
+    </a>
+    {% empty %}
+    <p class="shop-empty">No orders yet - <a href="{% url 'shop-all' %}">browse the shop</a>.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
