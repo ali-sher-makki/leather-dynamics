@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="contact-page">
+  <div class="auth-form-block">
+    <span class="eyebrow">Access Restricted</span>
+    <h1 class="contact-page-title">Account Locked</h1>
+    <p class="lockout-text">Too many failed login attempts. For security, this account is temporarily locked.</p>
+    <p class="lockout-warning">Trying to log in again before the timer ends will restart the wait - please leave this tab open and wait it out.</p>
+    <p class="lockout-countdown" id="lockout-countdown">Try again in 5:00</p>
+    <a href="{% url 'login' %}" class="btn-secondary lockout-link-disabled" id="lockout-link">Back to Login</a>
+  </div>
+</section>
+<script>
+(function () {
+  var seconds = 300;
+  var display = document.getElementById("lockout-countdown");
+  var link = document.getElementById("lockout-link");
+  var timer = setInterval(function () {
+    seconds -= 1;
+    if (seconds <= 0) {
+      clearInterval(timer);
+      display.textContent = "You can try logging in again now.";
+      link.classList.remove("lockout-link-disabled");
+      link.textContent = "Try Again";
+      return;
+    }
+    var m = Math.floor(seconds / 60);
+    var s = seconds % 60;
+    display.textContent = "Try again in " + m + ":" + (s < 10 ? "0" : "") + s;
+  }, 1000);
+
+  link.addEventListener("click", function (e) {
+    if (link.classList.contains("lockout-link-disabled")) {
+      e.preventDefault();
+    }
+  });
+})();
+</script>
+{% endblock %}
