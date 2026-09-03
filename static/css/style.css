@@ -123,7 +123,7 @@ body {
 
 @media (max-width: 700px) {
   .nav-links { display: none; }
-  .nav-cta { display: none; }
+  .floating-nav .nav-cta { display: none; }
   .nav-toggle { display: flex; }
   .floating-nav { gap: var(--space-2); padding: 10px 14px; }
 }
