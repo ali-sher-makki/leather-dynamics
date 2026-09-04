@@ -2,6 +2,7 @@ document.getElementById("contact-form").addEventListener("submit", async functio
   e.preventDefault();
   const form = e.target;
   const status = document.getElementById("form-status");
+  const csrfToken = form.querySelector("[name=csrfmiddlewaretoken]").value;
   const data = {
     name: form.name.value,
     company_name: form.company_name.value,
@@ -19,7 +20,7 @@ document.getElementById("contact-form").addEventListener("submit", async functio
   try {
     const res = await fetch("/api/quote/", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "X-CSRFToken": csrfToken },
       body: JSON.stringify(data)
     });
     if (res.ok) {

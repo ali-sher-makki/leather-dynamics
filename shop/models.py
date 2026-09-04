@@ -2,10 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.validators import FileExtensionValidator
+from django.core.exceptions import ValidationError
+
+def validate_image_size(file):
+    max_size_mb = 5
+    if file.size > max_size_mb * 1024 * 1024:
+        raise ValidationError(f"Image file too large - maximum size is {max_size_mb}MB.")
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    image = models.ImageField(upload_to="categories/", blank=True, null=True)
+    image = models.ImageField(upload_to="categories/", blank=True, null=True, validators=[validate_image_size])
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -18,7 +25,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="products")
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    image = models.ImageField(upload_to="products/", blank=True, null=True)
+    image = models.ImageField(upload_to="products/", blank=True, null=True, validators=[validate_image_size])
 
     def __str__(self):
         return self.name
@@ -39,7 +46,7 @@ class QuoteRequest(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
+    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True, validators=[validate_image_size])
     company_name = models.CharField(max_length=200, blank=True)
     country = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=50, blank=True)
