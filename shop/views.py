@@ -3,7 +3,10 @@ from django.urls import reverse
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings as django_settings
 from django.db.models import Avg
+from rest_framework.throttling import ScopedRateThrottle
 from rest_framework import viewsets, generics
 from .models import Product, QuoteRequest, Category, Profile, Wishlist, CartItem, Order, OrderItem, Review
 from .serializers import ProductSerializer, QuoteRequestSerializer
@@ -216,3 +219,32 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
 class QuoteRequestCreateView(generics.CreateAPIView):
     queryset = QuoteRequest.objects.all()
     serializer_class = QuoteRequestSerializer
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = 'quote'
+
+    def perform_create(self, serializer):
+        quote = serializer.save()
+        subject = f"New Quote Request from {quote.name}"
+        body = (
+            f"Name: {quote.name}\n"
+            f"Company: {quote.company_name or '-'}\n"
+            f"Country: {quote.country or '-'}\n"
+            f"Contact: {quote.contact_info}\n"
+            f"Product Required: {quote.product_required or '-'}\n"
+            f"Quantity: {quote.quantity or '-'}\n"
+            f"Customization Requirements: {quote.customization_requirements or '-'}\n"
+            f"Message: {quote.message or '-'}\n"
+        )
+        try:
+            send_mail(
+                subject,
+                body,
+                f"Leather Dynamic <{django_settings.EMAIL_HOST_USER}>",
+                [django_settings.QUOTE_NOTIFICATION_EMAIL],
+                fail_silently=True,
+            )
+        except Exception:
+            pass
+
+
+
