@@ -1,0 +1,1 @@
+web: gunicorn leatherdynamic.wsgi --log-file -
