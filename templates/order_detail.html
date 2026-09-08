@@ -7,10 +7,10 @@
       <h1 class="contact-page-title">Order Details</h1>
       <ul class="checkout-summary-list">
         {% for item in order.items.all %}
-        <li>{{ item.product_name }} x{{ item.quantity }} - ${{ item.subtotal }}</li>
+        <li>{{ item.product_name }} x{{ item.quantity }} - Rs. {{ item.subtotal }}</li>
         {% endfor %}
       </ul>
-      <p class="checkout-total">Total: ${{ order.total_amount }}</p>
+      <p class="checkout-total">Total: Rs. {{ order.total_amount }}</p>
       <a href="{% url 'order-history' %}" class="btn-secondary">Back to Order History</a>
     </div>
     <div class="contact-details-block">

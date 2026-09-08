@@ -25,7 +25,7 @@
         <div class="shop-card-image" {% if product.image %}style="background-image:url('{{ product.image.url }}');background-size:cover;background-position:center;"{% endif %}></div>
         {% if product.category %}<p class="shop-card-category">{{ product.category }}</p>{% endif %}
         <h3 class="shop-card-name">{{ product.name }}</h3>
-        <p class="shop-card-price">{% if product.price %}${{ product.price }}{% else %}Contact for Pricing{% endif %}</p>
+        <p class="shop-card-price">{% if product.price %}Rs. {{ product.price }}{% else %}Contact for Pricing{% endif %}</p>
       </a>
       {% if product.price %}
       <form method="post" action="{% url 'cart-add' product.id %}" class="shop-card-cart-form">

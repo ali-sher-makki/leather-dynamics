@@ -17,7 +17,7 @@
         <li>{{ item.product_name }} x{{ item.quantity }}</li>
         {% endfor %}
       </ul>
-      <p class="order-summary-total">Total: ${{ order.total_amount }} &middot; {{ order.created_at|date:"M d, Y" }}</p>
+      <p class="order-summary-total">Total: Rs. {{ order.total_amount }} &middot; {{ order.created_at|date:"M d, Y" }}</p>
     </a>
     {% empty %}
     <p class="shop-empty">No orders yet - <a href="{% url 'shop-all' %}">browse the shop</a>.</p>

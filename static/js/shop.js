@@ -15,7 +15,7 @@ async function loadProducts() {
         <div class="shop-card-image" style="${p.image ? `background-image:url('${p.image}');background-size:cover;background-position:center;` : ""}"></div>
         ${p.category ? `<p class="shop-card-category">${p.category}</p>` : ""}
         <h3 class="shop-card-name">${p.name}</h3>
-        <p class="shop-card-price">${p.price ? "$" + parseFloat(p.price).toFixed(2) : "Contact for Pricing"}</p>
+        <p class="shop-card-price">${p.price ? "Rs. " + parseFloat(p.price).toFixed(2) : "Contact for Pricing"}</p>
       </div>
     `).join("");
 

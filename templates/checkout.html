@@ -22,10 +22,10 @@
       <h2 class="contact-details-title">Your Items</h2>
       <ul class="checkout-summary-list">
         {% for item in items %}
-        <li>{{ item.product.name }} x{{ item.quantity }} - ${{ item.subtotal }}</li>
+        <li>{{ item.product.name }} x{{ item.quantity }} - Rs. {{ item.subtotal }}</li>
         {% endfor %}
       </ul>
-      <p class="checkout-total">Total: ${{ total }}</p>
+      <p class="checkout-total">Total: Rs. {{ total }}</p>
     </div>
   </div>
 </section>

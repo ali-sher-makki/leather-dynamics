@@ -13,7 +13,7 @@
       <p class="product-rating product-rating-empty">No reviews yet</p>
       {% endif %}
       <p class="product-detail-price">
-        {% if product.price %}${{ product.price }}{% else %}<a href="{% url 'contact-page' %}">Contact for Pricing</a>{% endif %}
+        {% if product.price %}Rs. {{ product.price }}{% else %}<a href="{% url 'contact-page' %}">Contact for Pricing</a>{% endif %}
       </p>
       <p class="product-detail-description">{{ product.description }}</p>
       <div class="product-detail-actions">
