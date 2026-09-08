@@ -222,29 +222,4 @@ class QuoteRequestCreateView(generics.CreateAPIView):
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = 'quote'
 
-    def perform_create(self, serializer):
-        quote = serializer.save()
-        subject = f"New Quote Request from {quote.name}"
-        body = (
-            f"Name: {quote.name}\n"
-            f"Company: {quote.company_name or '-'}\n"
-            f"Country: {quote.country or '-'}\n"
-            f"Contact: {quote.contact_info}\n"
-            f"Product Required: {quote.product_required or '-'}\n"
-            f"Quantity: {quote.quantity or '-'}\n"
-            f"Customization Requirements: {quote.customization_requirements or '-'}\n"
-            f"Message: {quote.message or '-'}\n"
-        )
-        try:
-            send_mail(
-                subject,
-                body,
-                f"Leather Dynamic <{django_settings.EMAIL_HOST_USER}>",
-                [django_settings.QUOTE_NOTIFICATION_EMAIL],
-                fail_silently=True,
-            )
-        except Exception:
-            pass
-
-
 
