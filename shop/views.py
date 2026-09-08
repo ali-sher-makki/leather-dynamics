@@ -85,7 +85,7 @@ def register_view(request):
             if avatar:
                 user.profile.avatar = avatar
             user.profile.save()
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect("home")
     else:
         form = RegisterForm()
